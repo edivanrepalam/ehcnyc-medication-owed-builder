@@ -274,6 +274,7 @@ const C = {
   page: '#e3f0f5', card: '#fbfdfe', hl: '#dff1f6', hlLine: '#b9e1ec', danger: '#c62828'
 };
 const FRIDGE = 'Keep refrigerated';
+const COOL_DRY = 'Store in a cool, dry place (away from heat, moisture & sunlight).';
 
 /* ============================================================
    CONFIG: edit medications, questions and signature here
@@ -339,7 +340,7 @@ const CONFIG = {
         { label: '5mL (10mg/mL)', pharmacy: 'Striker Pharmacy' }] },
       { name: 'Glow: GHK-Cu, BPC-157 & TB-500', form: 'Injectable', tag: FRIDGE, programs: [
         { label: '3mL (9mg/1.66mg/3.33mg/mL)', pharmacy: 'Striker Pharmacy' }] },
-      { name: 'Bioboost Plus', form: 'Injectable', tag: FRIDGE, programs: [
+      { name: 'Bioboost Plus', form: 'Injectable', tag: COOL_DRY, programs: [
         { label: '10mL', pharmacy: 'Hallandale Pharmacy' },
         { label: '30mL', pharmacy: 'Hallandale Pharmacy' }] },
       { name: 'MICB12', form: 'Gel Troches', programs: ['30 troches'] }
@@ -529,6 +530,11 @@ function questionRow(q, i, first) {
 </tr>`;
 }
 
+// Bioboost Plus storage note: sage green pill (no icon) shown next to the product name.
+function coolDryPill() {
+  return `<span style="display:inline-block;white-space:normal;margin:6px 0 0 0;padding:3px 10px;border-radius:12px;background-color:#e6f3e8;border:1px solid #c4e0c9;font-family:${F};font-size:11px;line-height:16px;font-weight:700;color:#27613a;">${esc(COOL_DRY)}</span>`;
+}
+
 function buildEmailBody(s) {
   const p = PRODUCTS[s.med] || null;
   const logoSrc = CONFIG.logoData;
@@ -540,6 +546,7 @@ function buildEmailBody(s) {
     ? `<strong>${esc(p.name)}</strong>${progBits ? ` (${progBits})` : ''}`
     : `<span style="color:${C.muted};">Select a medication or product</span>`;
   const pharm = s.pharmacy ? ` <span style="color:${C.muted};">(${esc(s.pharmacy)})</span>` : '';
+  const storage = p && p.tag === COOL_DRY ? `<div style="padding-top:4px;">${coolDryPill()}</div>` : '';
   const pharmName = s.pharmacy || 'The pharmacy';
 
   let n = 0;
@@ -579,7 +586,7 @@ function buildEmailBody(s) {
 
 <tr><td style="padding:26px 30px 0;font-family:${F};">
 <div style="font-size:18px;line-height:24px;font-weight:700;color:${C.ink};">Hi ${esc(s.name || 'there')}, <span style="font-weight:600;color:${C.accentDark};">we hope you are doing well.</span></div>
-<div style="font-size:15px;line-height:23px;color:${C.ink};padding-top:10px;">Thank you for reaching out regarding ${what} owed to you.${pharm}</div>
+<div style="font-size:15px;line-height:23px;color:${C.ink};padding-top:10px;">Thank you for reaching out regarding ${what} owed to you.${pharm}</div>${storage}
 </td></tr>
 
 ${secI}
