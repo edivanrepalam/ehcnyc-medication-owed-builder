@@ -567,7 +567,7 @@ function buildEmailBody(s) {
   // Shipment volume applies to injectables (mL) and ODT products (tablets)
   const volumeText = isODT(p) ? 'quantity (# of tablets)' : 'volume (#mL)';
   const secIV = (isInjectable(p) || isODT(p))
-    ? heading(R() + ' Shipment volume') + para(`${esc(pharmName)} will ship out the maximum ${volumeText} that can be administered during the BUD period as per your dose &amp; frequency.`)
+    ? heading(R() + ' Shipment volume') + para(`${esc(pharmName)} will ship out the maximum ${volumeText} that can be administered during the BUD period as per your dose &amp; frequency. This is to ensure your medication won't expire during treatment.`)
     : '';
 
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.page}" style="background-color:${C.page};background-image:linear-gradient(160deg,#d3eaf2 0%,#eef6f9 45%,#d8e9ef 100%);">
