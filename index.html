@@ -561,7 +561,7 @@ function buildEmailBody(s) {
     (s.comments ? spacer(14) + panel(`<tr><td align="center" style="padding:16px 18px;text-align:center;font-family:${F};font-size:14px;line-height:21px;color:${C.ink};"><div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:${C.accentDark};padding-bottom:6px;">Medication Owed</div>${nl2br(s.comments)}</td></tr>`) : '') +
     spacer(20) + button(replyUrl, 'Click here to reply to this email');
 
-  const secII = heading(R() + ' Order submission') + para('Once we receive your responses to the above inquiries, we will submit your order for fulfillment.' + (isInjectable(p) ? ' Supplies will be included with your order if requested.' : ''));
+  const secII = heading(R() + ' Order submission') + para('Once we receive your responses to the above inquiries, we will submit your order for fulfillment. Supplies will be included with your order if requested.');
   const carrier = s.shippingMethod ? esc(s.shippingMethod) + ' ' : '';
   const secIII = heading(R() + ' Tracking') + para(`A ${carrier}tracking # will be emailed to you once your order is ready to ship.`);
   // Shipment volume applies to injectables (mL) and ODT products (tablets)
