@@ -559,7 +559,8 @@ function buildEmailBody(s) {
     para(`<span style="color:${C.accentDark};">Kindly respond to the following before we send your order for fulfillment:</span>`) + spacer(12) +
     panel(qs.map((q, i) => questionRow(q, i, i === 0)).join('')) +
     (s.comments ? spacer(14) + panel(`<tr><td align="center" style="padding:16px 18px;text-align:center;font-family:${F};font-size:14px;line-height:21px;color:${C.ink};"><div style="font-size:12px;line-height:16px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:${C.accentDark};padding-bottom:6px;">Medication Owed</div>${nl2br(s.comments)}</td></tr>`) : '') +
-    spacer(20) + button(replyUrl, 'Click here to reply to this email');
+    '';
+  const replyBtn = spacer(20) + button(replyUrl, 'Click here to reply to this email');
 
   const secII = heading(R() + ' Order submission') + para('Once we receive your responses to the above inquiries, we will submit your order for fulfillment. Supplies will be included with your order if requested.');
   const carrier = s.shippingMethod ? esc(s.shippingMethod) + ' ' : '';
@@ -591,8 +592,8 @@ function buildEmailBody(s) {
 
 ${secI}
 ${secII}
-${secIII}
-${secIV}
+${secIII}${secIV ? '' : replyBtn}
+${secIV}${secIV ? replyBtn : ''}
 
 <tr><td style="padding:26px 30px 0;font-family:${F};font-size:14px;line-height:22px;color:${C.ink};">Best regards,</td></tr>
 ${signatureBlock(logoSrc)}
